@@ -1,0 +1,5 @@
+# Used for custom docker composes
+docker-compose-local.yml
+
+# Client modpack build output (too large for git)
+*.mrpack

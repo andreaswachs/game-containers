@@ -1,0 +1,9 @@
+services:
+  cobblemon:
+    image: delath/cobblemon
+    container_name: cobblemon
+    ports:
+      - "25565:25565/tcp"
+    volumes:
+      - ./world:/home/cobblemon/world
+    restart: 'unless-stopped'

@@ -1,0 +1,9 @@
+services:
+  cobblemon:
+    image: ghcr.io/andreaswachs/cobblemon-enhanced
+    container_name: cobblemon-enhanced
+    ports:
+      - "25565:25565/tcp"
+    volumes:
+      - ./world:/home/cobblemon/world
+    restart: 'unless-stopped'
