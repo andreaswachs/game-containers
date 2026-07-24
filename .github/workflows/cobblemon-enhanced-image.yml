@@ -58,4 +58,4 @@ jobs:
           build-args: ${{ steps.versions.outputs.build_args }}
           tags: |
             ghcr.io/${{ github.repository_owner }}/cobblemon-enhanced:latest
-            ghcr.io/${{ github.repository_owner }}/cobblemon-enhanced:${{ steps.versions.outputs.COBBLEMON_VERSION }}
+            ghcr.io/${{ github.repository_owner }}/cobblemon-enhanced:${{ steps.versions.outputs.IMAGE_VERSION }}
