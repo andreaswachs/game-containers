@@ -84,6 +84,15 @@ The following library mods are included as required by the addon mods above:
 
 - Architectury API, Accessories, owo-lib, Lithostitched, Chipped, Forge Config API Port, Resourceful Lib, Athena, CobbleFurnies
 
+## Performance
+
+- **Lithium** - Optimizes game physics, mob AI, and block ticking (server + client)
+- **FerriteCore** - Reduces memory usage by optimizing how the game stores blocks, items, and chunks (server + client)
+- **Krypton** - Optimizes the network stack for smoother multiplayer (server + client)
+- **Sodium** - Rewrites the rendering engine for massive FPS improvements (client only)
+- **Indium** - Provides Fabric Rendering API compatibility for Sodium, so addon mods render correctly (client only)
+- **Entity Culling** - Skips rendering of entities that aren't visible to the player, a big win with many Pokemon on screen (client only)
+
 # Client Modpack
 
 A prebuilt client modpack is available as `cobblemon-enhanced.mrpack`. Import it into the Modrinth launcher via "Add instance from file". To rebuild it, run:

@@ -99,6 +99,26 @@ MODS = [
     ("AXY1OO9m", "54k31lEX", "CobbleFurnies-fabric-1.2.jar",
      "https://cdn.modrinth.com/data/AXY1OO9m/versions/54k31lEX/CobbleFurnies-fabric-1.2.jar",
      "required", "required"),
+    # Performance (server + client)
+    ("gvQqBUqZ", "N08Z8wog", "lithium-fabric-0.15.4+mc1.21.1.jar",
+     "https://cdn.modrinth.com/data/gvQqBUqZ/versions/N08Z8wog/lithium-fabric-0.15.4%2Bmc1.21.1.jar",
+     "required", "required"),
+    ("uXXizFIs", "sOzRw3CG", "ferritecore-7.0.3-fabric.jar",
+     "https://cdn.modrinth.com/data/uXXizFIs/versions/sOzRw3CG/ferritecore-7.0.3-fabric.jar",
+     "required", "required"),
+    ("fQEb0iXm", "Acz3ttTp", "krypton-0.2.8.jar",
+     "https://cdn.modrinth.com/data/fQEb0iXm/versions/Acz3ttTp/krypton-0.2.8.jar",
+     "required", "required"),
+    # Performance (client only)
+    ("AANobbMI", "KIRFiWG4", "sodium-fabric-0.8.12+mc1.21.1.jar",
+     "https://cdn.modrinth.com/data/AANobbMI/versions/KIRFiWG4/sodium-fabric-0.8.12%2Bmc1.21.1.jar",
+     "required", "unsupported"),
+    ("Orvt0mRa", "Z8VpxxGh", "indium-1.0.35+mc1.21.jar",
+     "https://cdn.modrinth.com/data/Orvt0mRa/versions/Z8VpxxGh/indium-1.0.35%2Bmc1.21.jar",
+     "required", "unsupported"),
+    ("NNAgCjsB", "hsWvcyFJ", "entityculling-fabric-1.10.5-mc1.21.1.jar",
+     "https://cdn.modrinth.com/data/NNAgCjsB/versions/hsWvcyFJ/entityculling-fabric-1.10.5-mc1.21.1.jar",
+     "required", "unsupported"),
 ]
 
 files_entry = []

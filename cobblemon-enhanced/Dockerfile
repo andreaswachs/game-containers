@@ -44,6 +44,11 @@ ARG RESOURCEFUL_LIB_MODRINTH_ID=Hf91FuVF
 ARG ATHENA_MODRINTH_ID=JfyYsWKP
 ARG COBBLEFURNIES_MODRINTH_ID=54k31lEX
 
+# Performance
+ARG LITHIUM_MODRINTH_ID=N08Z8wog
+ARG FERRITECORE_MODRINTH_ID=sOzRw3CG
+ARG KRYPTON_MODRINTH_ID=Acz3ttTp
+
 # Install everything we need
 RUN apk add --no-cache \
     openjdk21-jre \
@@ -129,6 +134,14 @@ RUN wget -O /home/cobblemon/server/mods/xaeros-minimap.jar \
     "https://cdn.modrinth.com/data/NcUtCpym/versions/${XAEROS_WORLD_MAP_MODRINTH_ID}/xaeroworldmap-fabric-1.21.1-1.44.2.jar" && \
     wget -O /home/cobblemon/server/mods/compass-to-map-xaeros.jar \
     "https://cdn.modrinth.com/data/V7BPfphg/versions/${COMPASS_TO_MAP_XAEROS_MODRINTH_ID}/compasstomapxaeros-0.1.1.jar"
+
+# Download Performance mods (server-side: Lithium, FerriteCore, Krypton)
+RUN wget -O /home/cobblemon/server/mods/lithium.jar \
+    "https://cdn.modrinth.com/data/gvQqBUqZ/versions/${LITHIUM_MODRINTH_ID}/lithium-fabric-0.15.4%2Bmc1.21.1.jar" && \
+    wget -O /home/cobblemon/server/mods/ferritecore.jar \
+    "https://cdn.modrinth.com/data/uXXizFIs/versions/${FERRITECORE_MODRINTH_ID}/ferritecore-7.0.3-fabric.jar" && \
+    wget -O /home/cobblemon/server/mods/krypton.jar \
+    "https://cdn.modrinth.com/data/fQEb0iXm/versions/${KRYPTON_MODRINTH_ID}/krypton-0.2.8.jar"
 
 # Copy the entrypoint script
 COPY cobblemon.sh ./
