@@ -4,6 +4,14 @@ WORK = tempfile.mkdtemp(prefix="modpack_")
 MODS_DIR = os.path.join(WORK, "mods")
 os.makedirs(MODS_DIR, exist_ok=True)
 
+OVERRIDES_DIR = os.path.join(WORK, "overrides")
+os.makedirs(OVERRIDES_DIR, exist_ok=True)
+
+# Xaero's World Map defaults to M for opening the map, which shadows Cobblemon's M keybind
+# (starter selection + Pokemon management). Remap to N via options.txt override.
+with open(os.path.join(OVERRIDES_DIR, "options.txt"), "w") as f:
+    f.write("key_gui.xaero_open_map:key.keyboard.n\n")
+
 # All mods: (project_id, version_id, filename, url, env_client, env_server)
 # env_client/server: "required", "optional", or "unsupported"
 MODS = [
@@ -152,6 +160,11 @@ with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as zf:
     for filename in os.listdir(MODS_DIR):
         filepath = os.path.join(MODS_DIR, filename)
         zf.write(filepath, f"mods/{filename}")
+    for root, _, files in os.walk(OVERRIDES_DIR):
+        for fname in files:
+            fpath = os.path.join(root, fname)
+            arcname = os.path.relpath(fpath, WORK)
+            zf.write(fpath, arcname)
 
 print(f"Created {output_path}")
 print(f"Size: {os.path.getsize(output_path) / 1024 / 1024:.1f} MB")
