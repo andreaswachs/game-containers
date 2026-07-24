@@ -27,6 +27,15 @@ cp -n "$SERVER_DIR/fabric-server-launcher.jar" "$WORLD_DIR/" 2>/dev/null || true
 # Set up EULA
 echo "eula=${EULA}" > "$WORLD_DIR/eula.txt"
 
+# Enable command blocks (required by Radical Gyms & Structures data pack to spawn gym leaders)
+PROPERTIES="$WORLD_DIR/server.properties"
+if [ -f "$PROPERTIES" ]; then
+    sed -i 's/^enable-command-block=.*/enable-command-block=true/' "$PROPERTIES"
+    grep -q '^enable-command-block=' "$PROPERTIES" || echo 'enable-command-block=true' >> "$PROPERTIES"
+else
+    echo 'enable-command-block=true' > "$PROPERTIES"
+fi
+
 # Fix permissions
 chown -R cobblemon:cobblemon "$WORLD_DIR"
 chmod +x "$WORLD_DIR/fabric-server-launcher.jar"

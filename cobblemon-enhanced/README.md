@@ -69,7 +69,7 @@ This server goes beyond vanilla Cobblemon with the following addon mods:
 - **Radical Cobblemon Trainers** - Over 1500 unique trainers from Radical Red, Unbound, and Brilliant Diamond/Shining Pearl that spawn naturally in the world
 - **Radical Cobblemon Trainers API** - Trainer management and battle API (required by RCT)
 - **Rad Gyms** - Roguelike gym battles built on the RCT API
-- **Radical Gyms & Structures** - Naturally spawning gym structures that house the key RCT trainers as gym leaders you can discover and challenge
+- **Radical Gyms & Structures** - Naturally spawning gym structures that house the key RCT trainers as gym leaders you can discover and challenge. **Requires command blocks** — the entrypoint automatically sets `enable-command-block=true` in `server.properties`. Gym structures generate in the world, but the gym leaders inside them are spawned by command blocks embedded in the structures.
 - **Explorer's Compass** - Search for any structure (including gyms) and have your compass point you directly to it
 
 ## Navigation
