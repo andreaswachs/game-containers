@@ -3,3 +3,6 @@ docker-compose-local.yml
 
 # Client modpack build output (too large for git)
 *.mrpack
+
+# Local tooling
+.opencode/

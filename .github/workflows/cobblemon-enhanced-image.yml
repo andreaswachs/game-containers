@@ -17,65 +17,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Load versions from versions.env
         id: versions
         run: |
+          build_args=""
           while IFS='=' read -r key value; do
             [[ "$key" =~ ^#.*$ ]] && continue
             [[ -z "$key" ]] && continue
             key=$(echo "$key" | xargs)
             value=$(echo "$value" | xargs)
             echo "${key}=${value}" >> $GITHUB_OUTPUT
+            build_args="${build_args}${key}=${value}\n"
           done < cobblemon-enhanced/versions.env
+          echo "build_args<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$build_args" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Login to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: ./cobblemon-enhanced
           file: ./cobblemon-enhanced/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          build-args: |
-            COBBLEMON_VERSION=${{ steps.versions.outputs.COBBLEMON_VERSION }}
-            MINECRAFT_VERSION=${{ steps.versions.outputs.MINECRAFT_VERSION }}
-            FABRIC_LOADER_VERSION=${{ steps.versions.outputs.FABRIC_LOADER_VERSION }}
-            FABRIC_INSTALLER_VERSION=${{ steps.versions.outputs.FABRIC_INSTALLER_VERSION }}
-            FABRIC_API_VERSION=${{ steps.versions.outputs.FABRIC_API_VERSION }}
-            FABRIC_API_MODRINTH_ID=${{ steps.versions.outputs.FABRIC_API_MODRINTH_ID }}
-            COBBLEMON_MODRINTH_ID=${{ steps.versions.outputs.COBBLEMON_MODRINTH_ID }}
-            MEGA_SHOWDOWN_MODRINTH_ID=${{ steps.versions.outputs.MEGA_SHOWDOWN_MODRINTH_ID }}
-            NAVAS_ZAMEGA_MODRINTH_ID=${{ steps.versions.outputs.NAVAS_ZAMEGA_MODRINTH_ID }}
-            MEGA_SHOWDOWN_ITEM_PACK_MODRINTH_ID=${{ steps.versions.outputs.MEGA_SHOWDOWN_ITEM_PACK_MODRINTH_ID }}
-            MYTHS_AND_LEGENDS_MODRINTH_ID=${{ steps.versions.outputs.MYTHS_AND_LEGENDS_MODRINTH_ID }}
-            LEGENDARY_MONUMENTS_MODRINTH_ID=${{ steps.versions.outputs.LEGENDARY_MONUMENTS_MODRINTH_ID }}
-            LEGENDS_MYTHS_MODRINTH_ID=${{ steps.versions.outputs.LEGENDS_MYTHS_MODRINTH_ID }}
-            COMPLETE_COBBLEMON_COLLECTION_MODRINTH_ID=${{ steps.versions.outputs.COMPLETE_COBBLEMON_COLLECTION_MODRINTH_ID }}
-            RADICAL_TRAINERS_MODRINTH_ID=${{ steps.versions.outputs.RADICAL_TRAINERS_MODRINTH_ID }}
-            RCT_API_MODRINTH_ID=${{ steps.versions.outputs.RCT_API_MODRINTH_ID }}
-            RAD_GYMS_MODRINTH_ID=${{ steps.versions.outputs.RAD_GYMS_MODRINTH_ID }}
-            ARCHITECTURY_API_MODRINTH_ID=${{ steps.versions.outputs.ARCHITECTURY_API_MODRINTH_ID }}
-            ACCESSORIES_MODRINTH_ID=${{ steps.versions.outputs.ACCESSORIES_MODRINTH_ID }}
-            OWO_LIB_MODRINTH_ID=${{ steps.versions.outputs.OWO_LIB_MODRINTH_ID }}
-            LITHOSTITCHED_MODRINTH_ID=${{ steps.versions.outputs.LITHOSTITCHED_MODRINTH_ID }}
-            CHIPPED_MODRINTH_ID=${{ steps.versions.outputs.CHIPPED_MODRINTH_ID }}
-            FORGE_CONFIG_API_PORT_MODRINTH_ID=${{ steps.versions.outputs.FORGE_CONFIG_API_PORT_MODRINTH_ID }}
-            RESOURCEFUL_LIB_MODRINTH_ID=${{ steps.versions.outputs.RESOURCEFUL_LIB_MODRINTH_ID }}
-            ATHENA_MODRINTH_ID=${{ steps.versions.outputs.ATHENA_MODRINTH_ID }}
+          build-args: ${{ steps.versions.outputs.build_args }}
           tags: |
             ghcr.io/${{ github.repository_owner }}/cobblemon-enhanced:latest
             ghcr.io/${{ github.repository_owner }}/cobblemon-enhanced:${{ steps.versions.outputs.COBBLEMON_VERSION }}

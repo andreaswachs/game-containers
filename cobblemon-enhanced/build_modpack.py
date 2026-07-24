@@ -47,6 +47,22 @@ MODS = [
     ("eF8kqlHd", "2AR7EuiZ", "rad-gyms-fabric-0.4.4.jar",
      "https://cdn.modrinth.com/data/eF8kqlHd/versions/2AR7EuiZ/rad-gyms-fabric-0.4.4.jar",
      "required", "required"),
+    ("3sLJoaQH", "mk1teRxf", "Radical Gyms & Structures - RGS.jar",
+     "https://cdn.modrinth.com/data/3sLJoaQH/versions/mk1teRxf/Radical%20Gyms%20%26%20Structures%20-%20RGS.jar",
+     "optional", "required"),
+    ("RV1qfVQ8", "qSRKiE4D", "ExplorersCompass-1.21.1-2.6.0-fabric.jar",
+     "https://cdn.modrinth.com/data/RV1qfVQ8/versions/qSRKiE4D/ExplorersCompass-1.21.1-2.6.0-fabric.jar",
+     "required", "required"),
+    # Navigation
+    ("1bokaNcj", "Tx54V6kI", "xaerominimap-fabric-1.21.1-26.4.2.jar",
+     "https://cdn.modrinth.com/data/1bokaNcj/versions/Tx54V6kI/xaerominimap-fabric-1.21.1-26.4.2.jar",
+     "required", "unsupported"),
+    ("NcUtCpym", "L2nO7ZYD", "xaeroworldmap-fabric-1.21.1-1.44.2.jar",
+     "https://cdn.modrinth.com/data/NcUtCpym/versions/L2nO7ZYD/xaeroworldmap-fabric-1.21.1-1.44.2.jar",
+     "required", "unsupported"),
+    ("V7BPfphg", "izoTezRT", "compasstomapxaeros-0.1.1.jar",
+     "https://cdn.modrinth.com/data/V7BPfphg/versions/izoTezRT/compasstomapxaeros-0.1.1.jar",
+     "required", "required"),
     # Libraries
     ("lhGA9TYQ", "Wto0RchG", "architectury-13.0.8-fabric.jar",
      "https://cdn.modrinth.com/data/lhGA9TYQ/versions/Wto0RchG/architectury-13.0.8-fabric.jar",
@@ -72,6 +88,9 @@ MODS = [
     ("b1ZV3DIJ", "JfyYsWKP", "athena-fabric-1.21.1-4.0.6.jar",
      "https://cdn.modrinth.com/data/b1ZV3DIJ/versions/JfyYsWKP/athena-fabric-1.21.1-4.0.6.jar",
      "required", "optional"),
+    ("AXY1OO9m", "54k31lEX", "CobbleFurnies-fabric-1.2.jar",
+     "https://cdn.modrinth.com/data/AXY1OO9m/versions/54k31lEX/CobbleFurnies-fabric-1.2.jar",
+     "required", "required"),
 ]
 
 files_entry = []

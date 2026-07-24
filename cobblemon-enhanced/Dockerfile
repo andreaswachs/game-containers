@@ -25,6 +25,13 @@ ARG COMPLETE_COBBLEMON_COLLECTION_MODRINTH_ID=Azf9qoT6
 ARG RADICAL_TRAINERS_MODRINTH_ID=gQx1F1dx
 ARG RCT_API_MODRINTH_ID=9OZx0coL
 ARG RAD_GYMS_MODRINTH_ID=2AR7EuiZ
+ARG RADICAL_GYMS_STRUCTURES_MODRINTH_ID=mk1teRxf
+ARG EXPLORERS_COMPASS_MODRINTH_ID=qSRKiE4D
+
+# Navigation
+ARG XAEROS_MINIMAP_MODRINTH_ID=Tx54V6kI
+ARG XAEROS_WORLD_MAP_MODRINTH_ID=L2nO7ZYD
+ARG COMPASS_TO_MAP_XAEROS_MODRINTH_ID=izoTezRT
 
 # Library Dependencies
 ARG ARCHITECTURY_API_MODRINTH_ID=Wto0RchG
@@ -35,6 +42,7 @@ ARG CHIPPED_MODRINTH_ID=6h2mVZcb
 ARG FORGE_CONFIG_API_PORT_MODRINTH_ID=N5qzq0XV
 ARG RESOURCEFUL_LIB_MODRINTH_ID=Hf91FuVF
 ARG ATHENA_MODRINTH_ID=JfyYsWKP
+ARG COBBLEFURNIES_MODRINTH_ID=54k31lEX
 
 # Install everything we need
 RUN apk add --no-cache \
@@ -80,7 +88,9 @@ RUN wget -O /home/cobblemon/server/mods/architectury-api.jar \
     wget -O /home/cobblemon/server/mods/resourceful-lib.jar \
     "https://cdn.modrinth.com/data/G1hIVOrD/versions/${RESOURCEFUL_LIB_MODRINTH_ID}/resourcefullib-fabric-1.21-3.0.12.jar" && \
     wget -O /home/cobblemon/server/mods/athena.jar \
-    "https://cdn.modrinth.com/data/b1ZV3DIJ/versions/${ATHENA_MODRINTH_ID}/athena-fabric-1.21.1-4.0.6.jar"
+    "https://cdn.modrinth.com/data/b1ZV3DIJ/versions/${ATHENA_MODRINTH_ID}/athena-fabric-1.21.1-4.0.6.jar" && \
+    wget -O /home/cobblemon/server/mods/cobblefurnies.jar \
+    "https://cdn.modrinth.com/data/AXY1OO9m/versions/${COBBLEFURNIES_MODRINTH_ID}/CobbleFurnies-fabric-1.2.jar"
 
 # Download Mega Evolution mods
 RUN wget -O /home/cobblemon/server/mods/mega-showdown.jar \
@@ -106,7 +116,19 @@ RUN wget -O /home/cobblemon/server/mods/radical-cobblemon-trainers.jar \
     wget -O /home/cobblemon/server/mods/rct-api.jar \
     "https://cdn.modrinth.com/data/CBfM2yw7/versions/${RCT_API_MODRINTH_ID}/rctapi-fabric-1.21.1-0.15.2-beta.jar" && \
     wget -O /home/cobblemon/server/mods/rad-gyms.jar \
-    "https://cdn.modrinth.com/data/eF8kqlHd/versions/${RAD_GYMS_MODRINTH_ID}/rad-gyms-fabric-0.4.4.jar"
+    "https://cdn.modrinth.com/data/eF8kqlHd/versions/${RAD_GYMS_MODRINTH_ID}/rad-gyms-fabric-0.4.4.jar" && \
+    wget -O /home/cobblemon/server/mods/radical-gyms-structures.jar \
+    "https://cdn.modrinth.com/data/3sLJoaQH/versions/${RADICAL_GYMS_STRUCTURES_MODRINTH_ID}/Radical%20Gyms%20%26%20Structures%20-%20RGS.jar" && \
+    wget -O /home/cobblemon/server/mods/explorers-compass.jar \
+    "https://cdn.modrinth.com/data/RV1qfVQ8/versions/${EXPLORERS_COMPASS_MODRINTH_ID}/ExplorersCompass-1.21.1-2.6.0-fabric.jar"
+
+# Download Navigation mods
+RUN wget -O /home/cobblemon/server/mods/xaeros-minimap.jar \
+    "https://cdn.modrinth.com/data/1bokaNcj/versions/${XAEROS_MINIMAP_MODRINTH_ID}/xaerominimap-fabric-1.21.1-26.4.2.jar" && \
+    wget -O /home/cobblemon/server/mods/xaeros-world-map.jar \
+    "https://cdn.modrinth.com/data/NcUtCpym/versions/${XAEROS_WORLD_MAP_MODRINTH_ID}/xaeroworldmap-fabric-1.21.1-1.44.2.jar" && \
+    wget -O /home/cobblemon/server/mods/compass-to-map-xaeros.jar \
+    "https://cdn.modrinth.com/data/V7BPfphg/versions/${COMPASS_TO_MAP_XAEROS_MODRINTH_ID}/compasstomapxaeros-0.1.1.jar"
 
 # Copy the entrypoint script
 COPY cobblemon.sh ./

@@ -69,12 +69,20 @@ This server goes beyond vanilla Cobblemon with the following addon mods:
 - **Radical Cobblemon Trainers** - Over 1500 unique trainers from Radical Red, Unbound, and Brilliant Diamond/Shining Pearl that spawn naturally in the world
 - **Radical Cobblemon Trainers API** - Trainer management and battle API (required by RCT)
 - **Rad Gyms** - Roguelike gym battles built on the RCT API
+- **Radical Gyms & Structures** - Naturally spawning gym structures that house the key RCT trainers as gym leaders you can discover and challenge
+- **Explorer's Compass** - Search for any structure (including gyms) and have your compass point you directly to it
+
+## Navigation
+
+- **Xaero's Minimap** - Clean minimap with entity, waypoint, and cave rendering
+- **Xaero's World Map** - Full-screen world map that fills in as you explore
+- **Compass to Map: Xaero's Minimap** - Auto-registers structures found with Explorer's Compass as permanent waypoints on your minimap and world map
 
 ## Library Dependencies
 
 The following library mods are included as required by the addon mods above:
 
-- Architectury API, Accessories, owo-lib, Lithostitched, Chipped, Forge Config API Port, Resourceful Lib, Athena
+- Architectury API, Accessories, owo-lib, Lithostitched, Chipped, Forge Config API Port, Resourceful Lib, Athena, CobbleFurnies
 
 # Client Modpack
 
