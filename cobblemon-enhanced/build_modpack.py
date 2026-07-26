@@ -1,5 +1,19 @@
 import json, os, hashlib, urllib.request, zipfile, tempfile
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+VERSIONS = {}
+with open(os.path.join(SCRIPT_DIR, "versions.env")) as f:
+    for line in f:
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        key, _, value = line.partition("=")
+        VERSIONS[key.strip()] = value.strip()
+
+IMAGE_VERSION = VERSIONS["IMAGE_VERSION"]
+USER_AGENT = f"andreaswachs/cobblemon-enhanced/{IMAGE_VERSION}"
+
 WORK = tempfile.mkdtemp(prefix="modpack_")
 MODS_DIR = os.path.join(WORK, "mods")
 os.makedirs(MODS_DIR, exist_ok=True)
@@ -124,7 +138,7 @@ MODS = [
 files_entry = []
 for project_id, version_id, filename, url, client_side, server_side in MODS:
     print(f"Downloading {filename}...")
-    req = urllib.request.Request(url, headers={"User-Agent": "modpack-builder"})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     data = urllib.request.urlopen(req).read()
     filepath = os.path.join(MODS_DIR, filename)
     with open(filepath, "wb") as f:
@@ -159,12 +173,12 @@ for project_id, version_id, filename, url, client_side, server_side in MODS:
 index = {
     "formatVersion": 1,
     "game": "minecraft",
-    "versionId": "1.0.0",
+    "versionId": IMAGE_VERSION,
     "name": "Cobblemon Enhanced",
     "files": files_entry,
     "dependencies": {
-        "minecraft": "1.21.1",
-        "fabric-loader": "0.19.3",
+        "minecraft": VERSIONS["MINECRAFT_VERSION"],
+        "fabric-loader": VERSIONS["FABRIC_LOADER_VERSION"],
     },
 }
 
