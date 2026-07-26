@@ -84,11 +84,22 @@ jobs:
               primary_file: "mrpack_file"
             }')
 
-          curl --fail -fsSL \
+          RESPONSE=$(curl -sS -w "\n%{http_code}" \
             -X POST "https://api.modrinth.com/v2/version" \
             -H "Authorization: ${MODRINTH_TOKEN}" \
             -H "User-Agent: andreaswachs/cobblemon-enhanced/${VERSION}" \
             -F "data=${DATA}" \
-            -F "mrpack_file=@${MRPACK}"
+            -F "mrpack_file=@${MRPACK}")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          echo "HTTP status: ${HTTP_CODE}"
+          echo "Response body:"
+          echo "$BODY"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Modrinth upload failed (HTTP ${HTTP_CODE})"
+            exit 1
+          fi
 
           echo "Published version ${VERSION} to Modrinth project ${PROJECT}."
