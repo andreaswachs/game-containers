@@ -51,14 +51,23 @@ jobs:
         run: |
           VERSION="${{ steps.versions.outputs.IMAGE_VERSION }}"
           MC_VERSION="${{ steps.versions.outputs.MINECRAFT_VERSION }}"
-          PROJECT="wachs-cobblemon-enhanced"
+          PROJECT_SLUG="wachs-cobblemon-enhanced"
           MRPACK="cobblemon-enhanced/cobblemon-enhanced.mrpack"
+
+          # Resolve the base62 project ID from the slug (the create-version API
+          # requires the numeric ID, not the slug, in the project_id field)
+          PROJECT_ID=$(curl -fsSL \
+            -H "Authorization: ${MODRINTH_TOKEN}" \
+            -H "User-Agent: andreaswachs/cobblemon-enhanced/${VERSION}" \
+            "https://api.modrinth.com/v2/project/${PROJECT_SLUG}" \
+            | jq -r '.id')
+          echo "Resolved project ID: ${PROJECT_ID}"
 
           # Modrinth versions are immutable: skip if this version already exists
           EXISTING=$(curl -fsSL \
             -H "Authorization: ${MODRINTH_TOKEN}" \
             -H "User-Agent: andreaswachs/cobblemon-enhanced/${VERSION}" \
-            "https://api.modrinth.com/v2/project/${PROJECT}/version" \
+            "https://api.modrinth.com/v2/project/${PROJECT_SLUG}/version" \
             | jq -r --arg v "${VERSION}" '.[] | select(.version_number == $v) | .version_number')
           if [ -n "$EXISTING" ]; then
             echo "::notice::Version ${VERSION} already exists on Modrinth. Bump IMAGE_VERSION in versions.env to publish a new modpack version."
@@ -69,7 +78,7 @@ jobs:
             --arg name "Wachs Cobblemon Enhanced ${VERSION}" \
             --arg ver "${VERSION}" \
             --arg mc "${MC_VERSION}" \
-            --arg proj "${PROJECT}" \
+            --arg proj "${PROJECT_ID}" \
             '{
               name: $name,
               version_number: $ver,
@@ -102,4 +111,4 @@ jobs:
             exit 1
           fi
 
-          echo "Published version ${VERSION} to Modrinth project ${PROJECT}."
+          echo "Published version ${VERSION} to Modrinth project ${PROJECT_SLUG} (${PROJECT_ID})."
