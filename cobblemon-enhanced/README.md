@@ -63,6 +63,7 @@ This server goes beyond vanilla Cobblemon with the following addon mods:
 - **Legendary Monuments** - Adds special monument structures that spawn Legendaries (Zacian, Zamazenta, Reshiram, Zekrom, Kyurem, Hoopa, Cosmog, Keldeo, Regigigas, all Regis, Swords of Justice, Legendary Birds, and more)
 - **Legends & Myths** - Adds legendary and mythical Pokemon with new structures to explore
 - **Complete Cobblemon Collection** - Adds models, spawns, and animations for Pokemon not yet in vanilla Cobblemon
+- **Baby Legends** - Adds pre-evolutions of popular legendary Pokemon (baby Arceus, baby Rayquaza, baby Giratina, baby Dialga, baby Kyogre, baby Groudon, baby Xerneas, baby Yveltal, baby Necrozma, baby Zacian/Zamazenta, and more)
 
 ## Gyms + Elite Four / Trainers
 
@@ -92,6 +93,30 @@ The following library mods are included as required by the addon mods above:
 - **Sodium** - Rewrites the rendering engine for massive FPS improvements (client only)
 - **Indium** - Provides Fabric Rendering API compatibility for Sodium, so addon mods render correctly (client only)
 - **Entity Culling** - Skips rendering of entities that aren't visible to the player, a big win with many Pokemon on screen (client only)
+
+# Starter Configuration
+
+The server comes pre-configured with a **Baby Legendaries** starter category in addition to all default starter categories (Kanto through Paldea, plus Special). Players can choose from 29 baby legendary Pokemon at level 5:
+
+**Canonical baby legendaries** (from vanilla Cobblemon):
+- Cosmog (evolves into Solgaleo or Lunala)
+- Type: Null (evolves into Silvally)
+- Kubfu (evolves into Urshifu)
+- Meltan (evolves into Melmetal)
+- Phione (offspring of Manaphy)
+- Poipole (evolves into Naganadel)
+
+**Modded baby legendaries** (from the Baby Legends mod):
+- Beta (baby Arceus), Xerfawn (baby Xerneas), Raygul (baby Rayquaza)
+- Latot (baby Latios/Latias), Delcalf (baby Kyogre), Creslume (baby Cresselia)
+- Saladune (baby Groudon), Yangram (baby Reshiram/Zekrom/Kyurem), Zerpint (baby Zygarde)
+- Regiclay (baby Regis), Yivpip (baby Yveltal), Articoo (baby Articuno)
+- Statchic (baby Zapdos), Rotisikree (baby Moltres), Oh-Ho (baby Ho-Oh)
+- Haidon (baby Koraidon), Kaidon (baby Miraidon), Giragrub (baby Giratina)
+- Temga (baby Dialga), Royal Carbink (baby Diancie), Neonite (baby Necrozma)
+- Karfoal (baby Keldeo), Courpup (baby Zacian/Zamazenta)
+
+The starter configuration is seeded to `config/cobblemon/starters.json` on the world volume on first start. The entrypoint also sets `exportStarterConfig=true` in `config/cobblemon/main.json` so Cobblemon loads the custom starters. Both files use non-clobber copy (`cp -n`), so customizations made in the volume persist across restarts. To reset to defaults, delete `config/cobblemon/starters.json` and `config/cobblemon/main.json` from the world volume and restart the container.
 
 # Client Modpack
 

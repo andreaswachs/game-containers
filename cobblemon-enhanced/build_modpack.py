@@ -59,6 +59,9 @@ MODS = [
     ("qoL4kNxC", "Azf9qoT6", "complete-cobblemon-collection-myths-and-legends-compat-2.1.0.jar",
      "https://cdn.modrinth.com/data/qoL4kNxC/versions/Azf9qoT6/complete-cobblemon-collection-myths-and-legends-compat-2.1.0.jar",
      "optional", "required"),
+    ("88hsodcW", "z8KI8Mom", "baby-legends-cobblemon-2.3.jar",
+     "https://cdn.modrinth.com/data/88hsodcW/versions/z8KI8Mom/baby-legends-cobblemon-2.3.jar",
+     "optional", "required"),
     # Gyms / Trainers
     ("lRwTUnD7", "gQx1F1dx", "rctmod-fabric-1.21.1-0.18.1-beta.jar",
      "https://cdn.modrinth.com/data/lRwTUnD7/versions/gQx1F1dx/rctmod-fabric-1.21.1-0.18.1-beta.jar",

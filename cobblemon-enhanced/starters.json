@@ -1,0 +1,152 @@
+{
+    "allowStarterOnJoin": true,
+    "promptStarterOnceOnly": true,
+    "useConfigStarters": true,
+    "starters": [
+        {
+            "name": "Kanto",
+            "order": -110,
+            "displayName": "cobblemon.starterselection.category.kanto",
+            "pokemon": [
+                "Bulbasaur level=10",
+                "Charmander level=10",
+                "Squirtle level=10"
+            ]
+        },
+        {
+            "name": "Johto",
+            "order": -109,
+            "displayName": "cobblemon.starterselection.category.johto",
+            "pokemon": [
+                "Chikorita level=10",
+                "Cyndaquil level=10",
+                "Totodile level=10"
+            ]
+        },
+        {
+            "name": "Hoenn",
+            "order": -108,
+            "displayName": "cobblemon.starterselection.category.hoenn",
+            "pokemon": [
+                "Treecko level=10",
+                "Torchic level=10",
+                "Mudkip level=10"
+            ]
+        },
+        {
+            "name": "Sinnoh",
+            "order": -107,
+            "displayName": "cobblemon.starterselection.category.sinnoh",
+            "pokemon": [
+                "Turtwig level=10",
+                "Chimchar level=10",
+                "Piplup level=10"
+            ]
+        },
+        {
+            "name": "Unova",
+            "order": -106,
+            "displayName": "cobblemon.starterselection.category.unova",
+            "pokemon": [
+                "Snivy level=10",
+                "Tepig level=10",
+                "Oshawott level=10"
+            ]
+        },
+        {
+            "name": "Kalos",
+            "order": -105,
+            "displayName": "cobblemon.starterselection.category.kalos",
+            "pokemon": [
+                "Chespin level=10",
+                "Fennekin level=10",
+                "Froakie level=10"
+            ]
+        },
+        {
+            "name": "Alola",
+            "order": -104,
+            "displayName": "cobblemon.starterselection.category.alola",
+            "pokemon": [
+                "Rowlet level=10",
+                "Litten level=10",
+                "Popplio level=10"
+            ]
+        },
+        {
+            "name": "Galar",
+            "order": -103,
+            "displayName": "cobblemon.starterselection.category.galar",
+            "pokemon": [
+                "Grookey level=10",
+                "Scorbunny level=10",
+                "Sobble level=10"
+            ]
+        },
+        {
+            "name": "Hisui Bias",
+            "order": -102,
+            "displayName": "cobblemon.starterselection.category.hisui_bias",
+            "pokemon": [
+                "Rowlet form=hisui level=10 pokeball=ancient_poke_ball",
+                "Cyndaquil form=hisui level=10 pokeball=ancient_poke_ball",
+                "Oshawott form=hisui level=10 pokeball=ancient_poke_ball"
+            ]
+        },
+        {
+            "name": "Paldea",
+            "order": -101,
+            "displayName": "cobblemon.starterselection.category.paldea",
+            "pokemon": [
+                "Sprigatito level=10",
+                "Fuecoco level=10",
+                "Quaxly level=10"
+            ]
+        },
+        {
+            "name": "Special",
+            "order": -100,
+            "displayName": "cobblemon.starterselection.category.special",
+            "pokemon": [
+                "Pikachu level=10",
+                "Eevee level=10"
+            ]
+        },
+        {
+            "name": "Baby Legendaries",
+            "order": -90,
+            "displayName": "Baby Legendaries",
+            "pokemon": [
+                "cosmog level=5",
+                "typenull level=5",
+                "kubfu level=5",
+                "meltan level=5",
+                "phione level=5",
+                "poipole level=5",
+                "beta level=5",
+                "xerfawn level=5",
+                "raygul level=5",
+                "latot level=5",
+                "delcalf level=5",
+                "creslume level=5",
+                "saladune level=5",
+                "yangram level=5",
+                "zerpint level=5",
+                "regiclay level=5",
+                "yivpip level=5",
+                "articoo level=5",
+                "statchic level=5",
+                "rotisikree level=5",
+                "ohho level=5",
+                "haidon level=5",
+                "kaidon level=5",
+                "giragrub level=5",
+                "temga level=5",
+                "royalcarbink level=5",
+                "neonite level=5",
+                "karfoal level=5",
+                "courpup level=5"
+            ]
+        }
+    ]
+}

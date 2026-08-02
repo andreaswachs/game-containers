@@ -36,6 +36,16 @@ else
     echo 'enable-command-block=true' > "$PROPERTIES"
 fi
 
+COBBLEMON_CONFIG_DIR="$WORLD_DIR/config/cobblemon"
+mkdir -p "$COBBLEMON_CONFIG_DIR"
+MAIN_CONFIG="$COBBLEMON_CONFIG_DIR/main.json"
+if [ -f "$MAIN_CONFIG" ]; then
+    jq '.exportStarterConfig = true' "$MAIN_CONFIG" > "$MAIN_CONFIG.tmp" && mv "$MAIN_CONFIG.tmp" "$MAIN_CONFIG"
+else
+    echo '{"exportStarterConfig": true}' > "$MAIN_CONFIG"
+fi
+cp -n "$SERVER_DIR/config/cobblemon/starters.json" "$COBBLEMON_CONFIG_DIR/" 2>/dev/null || true
+
 # Fix permissions
 chown -R cobblemon:cobblemon "$WORLD_DIR"
 chmod +x "$WORLD_DIR/fabric-server-launcher.jar"

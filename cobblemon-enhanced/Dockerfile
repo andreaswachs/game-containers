@@ -20,6 +20,7 @@ ARG MYTHS_AND_LEGENDS_MODRINTH_ID=eg83qtSQ
 ARG LEGENDARY_MONUMENTS_MODRINTH_ID=6nvO1cvI
 ARG LEGENDS_MYTHS_MODRINTH_ID=ffm34Mmj
 ARG COMPLETE_COBBLEMON_COLLECTION_MODRINTH_ID=Azf9qoT6
+ARG BABY_LEGENDS_MODRINTH_ID=z8KI8Mom
 
 # Gyms + Elite Four / Trainers
 ARG RADICAL_TRAINERS_MODRINTH_ID=gQx1F1dx
@@ -113,7 +114,9 @@ RUN wget -O /home/cobblemon/server/mods/myths-and-legends.jar \
     wget -O /home/cobblemon/server/mods/legends-myths.jar \
     "https://cdn.modrinth.com/data/5EMX10qI/versions/${LEGENDS_MYTHS_MODRINTH_ID}/legends-myths-3.jar" && \
     wget -O /home/cobblemon/server/mods/complete-cobblemon-collection.jar \
-    "https://cdn.modrinth.com/data/qoL4kNxC/versions/${COMPLETE_COBBLEMON_COLLECTION_MODRINTH_ID}/complete-cobblemon-collection-myths-and-legends-compat-2.1.0.jar"
+    "https://cdn.modrinth.com/data/qoL4kNxC/versions/${COMPLETE_COBBLEMON_COLLECTION_MODRINTH_ID}/complete-cobblemon-collection-myths-and-legends-compat-2.1.0.jar" && \
+    wget -O /home/cobblemon/server/mods/baby-legends.jar \
+    "https://cdn.modrinth.com/data/88hsodcW/versions/${BABY_LEGENDS_MODRINTH_ID}/baby-legends-cobblemon-2.3.jar"
 
 # Download Gym / Trainer mods
 RUN wget -O /home/cobblemon/server/mods/radical-cobblemon-trainers.jar \
@@ -142,6 +145,11 @@ RUN wget -O /home/cobblemon/server/mods/lithium.jar \
     "https://cdn.modrinth.com/data/uXXizFIs/versions/${FERRITECORE_MODRINTH_ID}/ferritecore-7.0.3-fabric.jar" && \
     wget -O /home/cobblemon/server/mods/krypton.jar \
     "https://cdn.modrinth.com/data/fQEb0iXm/versions/${KRYPTON_MODRINTH_ID}/krypton-0.2.8.jar"
+
+COPY starters.json /home/cobblemon/server/config/cobblemon/starters.json
+
+RUN jq -e '.starters | length > 0 and all(.[]; .name and .order and .displayName and (.pokemon | length > 0))' \
+    /home/cobblemon/server/config/cobblemon/starters.json > /dev/null
 
 # Copy the entrypoint script
 COPY cobblemon.sh ./
