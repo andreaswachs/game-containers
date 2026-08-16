@@ -53,9 +53,12 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           VERSION="${{ steps.tag.outputs.tag }}"
-          aws --endpoint-url https://blob.wachs.software s3 cp \
-            cobblemon-enhanced/cobblemon-enhanced.mrpack \
-            "s3://modpacks/cobblemon-enhanced/${VERSION}.mrpack" \
+          # SeaweedFS S3 multipart upload is broken (InternalError on UploadPart);
+          # put-object does a single PUT, avoiding multipart for the ~90MB .mrpack.
+          aws --endpoint-url https://blob.wachs.software s3api put-object \
+            --bucket modpacks \
+            --key "cobblemon-enhanced/${VERSION}.mrpack" \
+            --body cobblemon-enhanced/cobblemon-enhanced.mrpack \
             --region us-east-1
           echo "Published to https://pub.blob.wachs.software/modpacks/cobblemon-enhanced/${VERSION}.mrpack"
 
