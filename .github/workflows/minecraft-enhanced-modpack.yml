@@ -53,9 +53,12 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           VERSION="${{ steps.tag.outputs.tag }}"
-          aws --endpoint-url https://blob.wachs.software s3 cp \
-            minecraft-enhanced/minecraft-enhanced.mrpack \
-            "s3://modpacks/minecraft-enhanced/${VERSION}.mrpack" \
+          # SeaweedFS S3 multipart upload is broken (InternalError on UploadPart);
+          # put-object does a single PUT, avoiding multipart for the ~90MB .mrpack.
+          aws --endpoint-url https://blob.wachs.software s3api put-object \
+            --bucket modpacks \
+            --key "minecraft-enhanced/${VERSION}.mrpack" \
+            --body minecraft-enhanced/minecraft-enhanced.mrpack \
             --region us-east-1
           echo "Published to https://pub.blob.wachs.software/modpacks/minecraft-enhanced/${VERSION}.mrpack"
 
