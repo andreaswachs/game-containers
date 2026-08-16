@@ -44,8 +44,11 @@ jobs:
           name: minecraft-enhanced-${{ steps.versions.outputs.IMAGE_VERSION }}.mrpack
           path: minecraft-enhanced/minecraft-enhanced.mrpack
           if-no-files-found: error
+          retention-days: 14
 
       - name: Publish to Modrinth
+        if: ${{ secrets.MODRINTH_TOKEN != '' }}
+        continue-on-error: true
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
