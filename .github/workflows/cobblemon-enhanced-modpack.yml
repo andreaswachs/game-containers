@@ -38,6 +38,20 @@ jobs:
       - name: Build modpack (.mrpack)
         run: python3 cobblemon-enhanced/build_modpack.py
 
+      - name: Upload .mrpack to SeaweedFS
+        if: ${{ secrets.MODPACK_CI_ACCESS_KEY != '' }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.MODPACK_CI_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.MODPACK_CI_SECRET_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          VERSION="${{ steps.versions.outputs.IMAGE_VERSION }}"
+          aws --endpoint-url https://blob.wachs.software s3 cp \
+            cobblemon-enhanced/cobblemon-enhanced.mrpack \
+            "s3://modpacks/cobblemon-enhanced/${VERSION}.mrpack" \
+            --region us-east-1
+          echo "Published to https://pub.blob.wachs.software/modpacks/cobblemon-enhanced/${VERSION}.mrpack"
+
       - name: Upload .mrpack artifact
         uses: actions/upload-artifact@v4
         with:
