@@ -35,6 +35,10 @@ jobs:
             echo "${key}=${value}" >> $GITHUB_OUTPUT
           done < cobblemon-enhanced/versions.env
 
+      - name: Load tag from image.yaml
+        id: tag
+        run: echo "tag=$(grep '^tag:' cobblemon-enhanced/image.yaml | awk '{print $2}')" >> $GITHUB_OUTPUT
+
       - name: Build modpack (.mrpack)
         run: python3 cobblemon-enhanced/build_modpack.py
 
@@ -45,7 +49,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.MODPACK_CI_SECRET_KEY }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
-          VERSION="${{ steps.versions.outputs.IMAGE_VERSION }}"
+          VERSION="${{ steps.tag.outputs.tag }}"
           aws --endpoint-url https://blob.wachs.software s3 cp \
             cobblemon-enhanced/cobblemon-enhanced.mrpack \
             "s3://modpacks/cobblemon-enhanced/${VERSION}.mrpack" \
@@ -55,7 +59,7 @@ jobs:
       - name: Upload .mrpack artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cobblemon-enhanced-${{ steps.versions.outputs.IMAGE_VERSION }}.mrpack
+          name: cobblemon-enhanced-${{ steps.tag.outputs.tag }}.mrpack
           path: cobblemon-enhanced/cobblemon-enhanced.mrpack
           if-no-files-found: error
 
@@ -63,7 +67,7 @@ jobs:
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
-          VERSION="${{ steps.versions.outputs.IMAGE_VERSION }}"
+          VERSION="${{ steps.tag.outputs.tag }}"
           MC_VERSION="${{ steps.versions.outputs.MINECRAFT_VERSION }}"
           PROJECT_SLUG="wachs-cobblemon-enhanced"
           MRPACK="cobblemon-enhanced/cobblemon-enhanced.mrpack"
@@ -84,7 +88,7 @@ jobs:
             "https://api.modrinth.com/v2/project/${PROJECT_SLUG}/version" \
             | jq -r --arg v "${VERSION}" '.[] | select(.version_number == $v) | .version_number')
           if [ -n "$EXISTING" ]; then
-            echo "::notice::Version ${VERSION} already exists on Modrinth. Bump IMAGE_VERSION in versions.env to publish a new modpack version."
+            echo "::notice::Version ${VERSION} already exists on Modrinth. Bump the tag in image.yaml to publish a new modpack version."
             exit 0
           fi
 
