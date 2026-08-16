@@ -15,6 +15,9 @@ jobs:
   publish_modpack:
     name: Build and publish modpack to Modrinth
     runs-on: ubuntu-latest
+    env:
+      MODPACK_CI_ACCESS_KEY: ${{ secrets.MODPACK_CI_ACCESS_KEY }}
+      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -43,7 +46,7 @@ jobs:
         run: python3 minecraft-enhanced/build_modpack.py
 
       - name: Upload .mrpack to SeaweedFS
-        if: ${{ secrets.MODPACK_CI_ACCESS_KEY != '' }}
+        if: ${{ env.MODPACK_CI_ACCESS_KEY != '' }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.MODPACK_CI_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.MODPACK_CI_SECRET_KEY }}
@@ -65,7 +68,7 @@ jobs:
           retention-days: 14
 
       - name: Publish to Modrinth
-        if: ${{ secrets.MODRINTH_TOKEN != '' }}
+        if: ${{ env.MODRINTH_TOKEN != '' }}
         continue-on-error: true
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
