@@ -11,7 +11,11 @@ with open(os.path.join(SCRIPT_DIR, "versions.env")) as f:
         key, _, value = line.partition("=")
         VERSIONS[key.strip()] = value.strip()
 
-IMAGE_VERSION = VERSIONS["IMAGE_VERSION"]
+with open(os.path.join(SCRIPT_DIR, "image.yaml")) as f:
+    for line in f:
+        if line.startswith("tag:"):
+            IMAGE_VERSION = line.split(":", 1)[1].strip()
+            break
 USER_AGENT = f"andreaswachs/minecraft-enhanced/{IMAGE_VERSION}"
 
 WORK = tempfile.mkdtemp(prefix="modpack_")

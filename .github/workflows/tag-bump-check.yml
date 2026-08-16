@@ -1,0 +1,48 @@
+name: Tag bump check
+
+on:
+  pull_request:
+    paths:
+      - 'cobblemon/**'
+      - 'cobblemon-enhanced/**'
+      - 'minecraft-enhanced/**'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Verify tag bumps for changed subfolders
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag bumps
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          CHANGED="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
+          FAIL=0
+          for d in cobblemon cobblemon-enhanced minecraft-enhanced; do
+            if ! printf '%s\n' "$CHANGED" | grep -q "^$d/"; then
+              continue
+            fi
+            OLD="$(git show "origin/${{ github.base_ref }}:$d/image.yaml" 2>/dev/null | grep '^tag:' | awk '{print $2}')"
+            NEW="$(grep '^tag:' "$d/image.yaml" | awk '{print $2}')"
+            if [ -z "$OLD" ]; then
+              echo "::notice::$d/image.yaml is new on this branch — no base tag to compare"
+              continue
+            fi
+            if [ "$NEW" = "$OLD" ]; then
+              echo "::error::$d changed but tag is unchanged ($NEW)"
+              FAIL=1
+            elif [ "$(printf '%s\n%s\n' "$OLD" "$NEW" | sort -V | head -1)" = "$NEW" ]; then
+              echo "::error::$d tag went backwards ($OLD -> $NEW)"
+              FAIL=1
+            else
+              echo "OK: $d bumped $OLD -> $NEW"
+            fi
+          done
+          exit $FAIL
