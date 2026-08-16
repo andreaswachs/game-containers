@@ -25,8 +25,8 @@ os.makedirs(OVERRIDES_DIR, exist_ok=True)
 # env_client/server: "required", "optional", or "unsupported"
 MODS = [
     # Core
-    ("P7dR8mSH", VERSIONS["FABRIC_API_MODRINTH_ID"], "fabric-api-0.116.8+1.21.1.jar",
-     "https://cdn.modrinth.com/data/P7dR8mSH/versions/" + VERSIONS["FABRIC_API_MODRINTH_ID"] + "/fabric-api-0.116.8%2B1.21.1.jar",
+    ("P7dR8mSH", VERSIONS["FABRIC_API_MODRINTH_ID"], "fabric-api-0.115.6+1.21.1.jar",
+     "https://cdn.modrinth.com/data/P7dR8mSH/versions/" + VERSIONS["FABRIC_API_MODRINTH_ID"] + "/fabric-api-0.115.6%2B1.21.1.jar",
      "required", "required"),
     # Weapons
     ("bK3Ubu9p", VERSIONS["SIMPLY_SWORDS_MODRINTH_ID"], "simplyswords-fabric-1.63.0-1.21.1.jar",
@@ -138,6 +138,9 @@ MODS = [
      "https://cdn.modrinth.com/data/NNAgCjsB/versions/" + VERSIONS["ENTITY_CULLING_MODRINTH_ID"] + "/entityculling-fabric-1.10.5-mc1.21.1.jar",
      "required", "unsupported"),
     # Libraries
+    ("XaDC71GB", VERSIONS["LITHOSTITCHED_MODRINTH_ID"], "lithostitched-1.7.13-fabric-21.1.jar",
+     "https://cdn.modrinth.com/data/XaDC71GB/versions/" + VERSIONS["LITHOSTITCHED_MODRINTH_ID"] + "/lithostitched-1.7.13-fabric-21.1.jar",
+     "required", "required"),
     ("lhGA9TYQ", VERSIONS["ARCHITECTURY_API_MODRINTH_ID"], "architectury-13.0.11-fabric.jar",
      "https://cdn.modrinth.com/data/lhGA9TYQ/versions/" + VERSIONS["ARCHITECTURY_API_MODRINTH_ID"] + "/architectury-13.0.11-fabric.jar",
      "required", "required"),

@@ -5,10 +5,10 @@ FROM alpine:3
 ARG MINECRAFT_VERSION=1.21.1
 ARG FABRIC_LOADER_VERSION=0.19.3
 ARG FABRIC_INSTALLER_VERSION=1.1.1
-ARG FABRIC_API_VERSION=0.116.8
+ARG FABRIC_API_VERSION=0.115.6
 
 # Core
-ARG FABRIC_API_MODRINTH_ID=3wZtvzew
+ARG FABRIC_API_MODRINTH_ID=4AkOEqGy
 
 # Weapons
 ARG SIMPLY_SWORDS_MODRINTH_ID=gcFhYOoT
@@ -58,6 +58,7 @@ ARG FERRITECORE_MODRINTH_ID=sOzRw3CG
 ARG KRYPTON_MODRINTH_ID=Acz3ttTp
 
 # Library Dependencies
+ARG LITHOSTITCHED_MODRINTH_ID=JWtSqSeY
 ARG ARCHITECTURY_API_MODRINTH_ID=Pzc2FP5K
 ARG FZZY_CONFIG_MODRINTH_ID=kOmySYD4
 ARG SIMPLY_TOOLTIPS_MODRINTH_ID=jrFEfRpA
@@ -99,7 +100,9 @@ RUN wget -O /home/minecraft/server/mods/fabric-api.jar \
     "https://cdn.modrinth.com/data/P7dR8mSH/versions/${FABRIC_API_MODRINTH_ID}/fabric-api-${FABRIC_API_VERSION}%2B${MINECRAFT_VERSION}.jar"
 
 # Download library dependencies (required by addon mods below)
-RUN wget -O /home/minecraft/server/mods/architectury-api.jar \
+RUN wget -O /home/minecraft/server/mods/lithostitched.jar \
+    "https://cdn.modrinth.com/data/XaDC71GB/versions/${LITHOSTITCHED_MODRINTH_ID}/lithostitched-1.7.13-fabric-21.1.jar" && \
+    wget -O /home/minecraft/server/mods/architectury-api.jar \
     "https://cdn.modrinth.com/data/lhGA9TYQ/versions/${ARCHITECTURY_API_MODRINTH_ID}/architectury-13.0.11-fabric.jar" && \
     wget -O /home/minecraft/server/mods/fzzy-config.jar \
     "https://cdn.modrinth.com/data/hYykXjDp/versions/${FZZY_CONFIG_MODRINTH_ID}/fzzy_config-0.7.6%2B1.21.jar" && \
