@@ -1,0 +1,9 @@
+services:
+  minecraft:
+    image: ghcr.io/andreaswachs/minecraft-enhanced
+    container_name: minecraft-enhanced
+    ports:
+      - "25565:25565/tcp"
+    volumes:
+      - ./world:/home/minecraft/world
+    restart: 'unless-stopped'

@@ -1,0 +1,114 @@
+name: minecraft-enhanced Modpack CI
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - minecraft-enhanced/build_modpack.py
+      - minecraft-enhanced/versions.env
+      - .github/workflows/minecraft-enhanced-modpack.yml
+
+permissions:
+  contents: read
+
+jobs:
+  publish_modpack:
+    name: Build and publish modpack to Modrinth
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Load versions from versions.env
+        id: versions
+        run: |
+          while IFS='=' read -r key value; do
+            [[ "$key" =~ ^#.*$ ]] && continue
+            [[ -z "$key" ]] && continue
+            key=$(echo "$key" | xargs)
+            value=$(echo "$value" | xargs)
+            echo "${key}=${value}" >> $GITHUB_OUTPUT
+          done < minecraft-enhanced/versions.env
+
+      - name: Build modpack (.mrpack)
+        run: python3 minecraft-enhanced/build_modpack.py
+
+      - name: Upload .mrpack artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minecraft-enhanced-${{ steps.versions.outputs.IMAGE_VERSION }}.mrpack
+          path: minecraft-enhanced/minecraft-enhanced.mrpack
+          if-no-files-found: error
+
+      - name: Publish to Modrinth
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: |
+          VERSION="${{ steps.versions.outputs.IMAGE_VERSION }}"
+          MC_VERSION="${{ steps.versions.outputs.MINECRAFT_VERSION }}"
+          PROJECT_SLUG="wachs-minecraft-enhanced"
+          MRPACK="minecraft-enhanced/minecraft-enhanced.mrpack"
+
+          # Resolve the base62 project ID from the slug (the create-version API
+          # requires the numeric ID, not the slug, in the project_id field)
+          PROJECT_ID=$(curl -fsSL \
+            -H "Authorization: ${MODRINTH_TOKEN}" \
+            -H "User-Agent: andreaswachs/minecraft-enhanced/${VERSION}" \
+            "https://api.modrinth.com/v2/project/${PROJECT_SLUG}" \
+            | jq -r '.id')
+          echo "Resolved project ID: ${PROJECT_ID}"
+
+          # Modrinth versions are immutable: skip if this version already exists
+          EXISTING=$(curl -fsSL \
+            -H "Authorization: ${MODRINTH_TOKEN}" \
+            -H "User-Agent: andreaswachs/minecraft-enhanced/${VERSION}" \
+            "https://api.modrinth.com/v2/project/${PROJECT_SLUG}/version" \
+            | jq -r --arg v "${VERSION}" '.[] | select(.version_number == $v) | .version_number')
+          if [ -n "$EXISTING" ]; then
+            echo "::notice::Version ${VERSION} already exists on Modrinth. Bump IMAGE_VERSION in versions.env to publish a new modpack version."
+            exit 0
+          fi
+
+          DATA=$(jq -nc \
+            --arg name "Wachs Minecraft Enhanced ${VERSION}" \
+            --arg ver "${VERSION}" \
+            --arg mc "${MC_VERSION}" \
+            --arg proj "${PROJECT_ID}" \
+            '{
+              name: $name,
+              version_number: $ver,
+              changelog: "",
+              dependencies: [],
+              game_versions: [$mc],
+              version_type: "release",
+              loaders: ["fabric"],
+              featured: true,
+              project_id: $proj,
+              file_parts: ["mrpack_file"],
+              primary_file: "mrpack_file"
+            }')
+
+          RESPONSE=$(curl -sS -w "\n%{http_code}" \
+            -X POST "https://api.modrinth.com/v2/version" \
+            -H "Authorization: ${MODRINTH_TOKEN}" \
+            -H "User-Agent: andreaswachs/minecraft-enhanced/${VERSION}" \
+            -F "data=${DATA}" \
+            -F "mrpack_file=@${MRPACK}")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          echo "HTTP status: ${HTTP_CODE}"
+          echo "Response body:"
+          echo "$BODY"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Modrinth upload failed (HTTP ${HTTP_CODE})"
+            exit 1
+          fi
+
+          echo "Published version ${VERSION} to Modrinth project ${PROJECT_SLUG} (${PROJECT_ID})."
