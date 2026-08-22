@@ -46,6 +46,11 @@ else
 fi
 cp -n "$SERVER_DIR/config/cobblemon/starters.json" "$COBBLEMON_CONFIG_DIR/" 2>/dev/null || true
 
+# Seed RCT server config (disables the gym-progression level cap)
+RCT_CONFIG_DIR="$WORLD_DIR/config"
+mkdir -p "$RCT_CONFIG_DIR"
+cp -n "$SERVER_DIR/config/rctmod-server.toml" "$RCT_CONFIG_DIR/rctmod-server.toml" 2>/dev/null || true
+
 # Fix permissions
 chown -R cobblemon:cobblemon "$WORLD_DIR"
 chmod +x "$WORLD_DIR/fabric-server-launcher.jar"

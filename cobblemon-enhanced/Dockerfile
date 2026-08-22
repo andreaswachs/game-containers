@@ -148,6 +148,9 @@ RUN wget -O /home/cobblemon/server/mods/lithium.jar \
 
 COPY starters.json /home/cobblemon/server/config/cobblemon/starters.json
 
+# RCT server config: disable the gym-progression level cap
+COPY rctmod-server.toml /home/cobblemon/server/config/rctmod-server.toml
+
 RUN jq -e '.starters | length > 0 and all(.[]; .name and .order and .displayName and (.pokemon | length > 0))' \
     /home/cobblemon/server/config/cobblemon/starters.json > /dev/null
 
