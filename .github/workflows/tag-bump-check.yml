@@ -6,6 +6,7 @@ on:
       - 'cobblemon/**'
       - 'cobblemon-enhanced/**'
       - 'minecraft-enhanced/**'
+      - 'unshare/**'
 
 permissions:
   contents: read
@@ -25,7 +26,7 @@ jobs:
           git fetch origin "${{ github.base_ref }}" --depth=1
           CHANGED="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
           FAIL=0
-          for d in cobblemon cobblemon-enhanced minecraft-enhanced; do
+          for d in cobblemon cobblemon-enhanced minecraft-enhanced unshare; do
             if ! printf '%s\n' "$CHANGED" | grep -q "^$d/"; then
               continue
             fi
