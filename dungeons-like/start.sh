@@ -22,8 +22,9 @@ chown -R minecraft:minecraft "$WORLD_DIR"
 # Create world directory structure
 mkdir -p "$WORLD_DIR/mods"
 
-# Copy mods to world directory (allows volume persistence and custom mods)
-cp -n "$SERVER_DIR/mods/"*.jar "$WORLD_DIR/mods/" 2>/dev/null || true
+# Copy mods to world directory (always overwrite to ensure image mods are present,
+# even after a crash that left the volume in a bad state)
+cp "$SERVER_DIR/mods/"*.jar "$WORLD_DIR/mods/" 2>/dev/null || true
 
 # Copy Forge launch script (always overwrite to ensure latest)
 cp -f "$SERVER_DIR/run.sh" "$WORLD_DIR/run.sh"
