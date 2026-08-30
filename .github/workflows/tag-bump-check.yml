@@ -6,6 +6,7 @@ on:
       - 'cobblemon/**'
       - 'cobblemon-enhanced/**'
       - 'minecraft-enhanced/**'
+      - 'dungeons-like/**'
       - 'unshare/**'
       - 'mza/**'
 
@@ -27,7 +28,7 @@ jobs:
           git fetch origin "${{ github.base_ref }}" --depth=1
           CHANGED="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
           FAIL=0
-          for d in cobblemon cobblemon-enhanced minecraft-enhanced unshare mza; do
+          for d in cobblemon cobblemon-enhanced minecraft-enhanced dungeons-like unshare mza; do
             if ! printf '%s\n' "$CHANGED" | grep -q "^$d/"; then
               continue
             fi

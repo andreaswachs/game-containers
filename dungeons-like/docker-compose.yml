@@ -1,0 +1,9 @@
+services:
+  minecraft:
+    image: ghcr.io/andreaswachs/dungeons-like
+    container_name: dungeons-like
+    ports:
+      - "25565:25565/tcp"
+    volumes:
+      - ./world:/home/minecraft/world
+    restart: 'unless-stopped'
