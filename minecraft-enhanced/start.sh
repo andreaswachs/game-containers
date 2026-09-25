@@ -18,8 +18,9 @@ SERVER_DIR="/home/minecraft/server"
 # Create world directory structure
 mkdir -p "$WORLD_DIR/mods"
 
-# Copy mods to world directory (allows volume persistence and custom mods)
-cp -n "$SERVER_DIR/mods/"*.jar "$WORLD_DIR/mods/" 2>/dev/null || true
+# Copy mods to world directory (always overwrite to ensure image mods are present,
+# even after a crash that left the volume in a bad state)
+cp "$SERVER_DIR/mods/"*.jar "$WORLD_DIR/mods/" 2>/dev/null || true
 
 # The fabric launcher's installer re-runs on every start and crashes with
 # FileAlreadyExistsException if a stale non-directory entry (interrupted
@@ -32,8 +33,8 @@ for d in libraries versions; do
     fi
 done
 
-# Copy server launcher if not present
-cp -n "$SERVER_DIR/fabric-server-launcher.jar" "$WORLD_DIR/" 2>/dev/null || true
+# Copy server launcher (always overwrite to ensure the launcher matches the image)
+cp -f "$SERVER_DIR/fabric-server-launcher.jar" "$WORLD_DIR/" 2>/dev/null || true
 
 # Set up EULA
 echo "eula=${EULA}" > "$WORLD_DIR/eula.txt"
