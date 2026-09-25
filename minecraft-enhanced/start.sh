@@ -21,6 +21,17 @@ mkdir -p "$WORLD_DIR/mods"
 # Copy mods to world directory (allows volume persistence and custom mods)
 cp -n "$SERVER_DIR/mods/"*.jar "$WORLD_DIR/mods/" 2>/dev/null || true
 
+# The fabric launcher's installer re-runs on every start and crashes with
+# FileAlreadyExistsException if a stale non-directory entry (interrupted
+# install / reused volume, e.g. in kubernetes) is in the way
+for d in libraries versions; do
+    if [ -L "$WORLD_DIR/$d" ]; then
+        rm -f "$WORLD_DIR/$d"
+    elif [ -e "$WORLD_DIR/$d" ] && [ ! -d "$WORLD_DIR/$d" ]; then
+        rm -f "$WORLD_DIR/$d"
+    fi
+done
+
 # Copy server launcher if not present
 cp -n "$SERVER_DIR/fabric-server-launcher.jar" "$WORLD_DIR/" 2>/dev/null || true
 
