@@ -56,6 +56,11 @@ This server is a vanilla Minecraft Fabric server packed with popular mods focuse
 - **Simply Swords** - Adds Spears, Glaives, Chakrams, Katanas, Greathammers, Greataxes, Rapiers, and many more weapon types with unique abilities
 - **Better Combat** - Spectacular and fun melee combat system inspired by Minecraft Dungeons, with sweep attacks, combo chains, and weapon-specific animations
 
+## Vehicles
+
+- **Immersive Aircraft** - Fly gyrodyne helicopters, quadrocopters, airships, and biplanes. Craft them and take off straight from your base
+- **Man of Many Planes** - Adds a whole collection of planes to Immersive Aircraft, from crop dusters to passenger airliners
+
 ## Magic
 
 - **Spell Engine** - Data-driven magic system that powers all spell mods below
@@ -107,15 +112,22 @@ This server is a vanilla Minecraft Fabric server packed with popular mods focuse
 - **Lithium** - Optimizes game physics, mob AI, and block ticking (server + client)
 - **FerriteCore** - Reduces memory usage by optimizing how the game stores blocks, items, and chunks (server + client)
 - **Krypton** - Optimizes the network stack for smoother multiplayer (server + client)
+- **ModernFix** - Speeds up game loading and reduces memory usage (server + client)
+- **Let Me Despawn** - Smarter mob despawning so mobs don't pile up around your bases (server only)
 - **Sodium** - Rewrites the rendering engine for massive FPS improvements (client only)
 - **Indium** - Provides Fabric Rendering API compatibility for Sodium, so addon mods render correctly (client only)
 - **Entity Culling** - Skips rendering of entities that aren't visible to the player (client only)
+- **ImmediatelyFast** - Optimizes immediate-mode rendering like HUD, text, and item frames for higher FPS (client only)
+- **More Culling** - Culls even more things like block entities and item frames for higher FPS (client only)
+- **Dynamic FPS** - Lowers FPS and resource usage automatically when the game is in the background (client only)
+- **BadOptimizations** - Micro-optimizations for rendering and game logic (client only)
+- **Enhanced Block Entities** - Renders chests, bells, and signs much faster for higher FPS (client only)
 
 ## Library Dependencies
 
 The following library mods are included as required by the addon mods above:
 
-- Architectury API, Fzzy Config, Simply Tooltips, Player Animator, Cloth Config, Cardinal Components API, Balm, Puzzles Lib, Forge Config API Port, Fabric Language Kotlin, Structure Pool API, Runes, AzureLib Armor, Resourceful Lib, Athena
+- Architectury API, Fzzy Config, Simply Tooltips, Player Animator, Cloth Config, Cardinal Components API, Balm, Puzzles Lib, Forge Config API Port, Fabric Language Kotlin, Structure Pool API, Runes, AzureLib Armor, Resourceful Lib, Athena, Almanac
 
 # Client Modpack
 

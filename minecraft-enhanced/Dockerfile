@@ -14,6 +14,10 @@ ARG FABRIC_API_MODRINTH_ID=4AkOEqGy
 ARG SIMPLY_SWORDS_MODRINTH_ID=gcFhYOoT
 ARG BETTER_COMBAT_MODRINTH_ID=JJQpBecL
 
+# Vehicles
+ARG IMMERSIVE_AIRCRAFT_MODRINTH_ID=Ib1HyDOQ
+ARG MAN_OF_MANY_PLANES_MODRINTH_ID=7EqMgtjo
+
 # Magic
 ARG SPELL_ENGINE_MODRINTH_ID=AzuZrwDk
 ARG SPELL_POWER_MODRINTH_ID=IyVyrKj8
@@ -56,6 +60,11 @@ ARG MACAWS_BRIDGES_MODRINTH_ID=pl1CA7dW
 ARG LITHIUM_MODRINTH_ID=N08Z8wog
 ARG FERRITECORE_MODRINTH_ID=sOzRw3CG
 ARG KRYPTON_MODRINTH_ID=Acz3ttTp
+ARG MODERNFIX_MODRINTH_ID=NnNX8LBn
+
+# Performance (server only)
+ARG LET_ME_DESPAWN_MODRINTH_ID=Wb7jqi55
+ARG ALMANAC_MODRINTH_ID=hUgNmeCO
 
 # Library Dependencies
 ARG LITHOSTITCHED_MODRINTH_ID=JWtSqSeY
@@ -139,6 +148,12 @@ RUN wget -O /home/minecraft/server/mods/simply-swords.jar \
     wget -O /home/minecraft/server/mods/better-combat.jar \
     "https://cdn.modrinth.com/data/5sy6g3kz/versions/${BETTER_COMBAT_MODRINTH_ID}/bettercombat-fabric-2.4.0%2B1.21.1.jar"
 
+# Download Vehicle mods
+RUN wget -O /home/minecraft/server/mods/immersive-aircraft.jar \
+    "https://cdn.modrinth.com/data/x3HZvrj6/versions/${IMMERSIVE_AIRCRAFT_MODRINTH_ID}/immersive_aircraft-1.5.2%2B1.21.1-fabric.jar" && \
+    wget -O /home/minecraft/server/mods/man-of-many-planes.jar \
+    "https://cdn.modrinth.com/data/9qdTHi0q/versions/${MAN_OF_MANY_PLANES_MODRINTH_ID}/man_of_many_planes-0.2.2%2B1.21.1-fabric.jar"
+
 # Download Magic mods
 RUN wget -O /home/minecraft/server/mods/spell-engine.jar \
     "https://cdn.modrinth.com/data/XvoWJaA2/versions/${SPELL_ENGINE_MODRINTH_ID}/spell_engine-fabric-1.9.16%2B1.21.1.jar" && \
@@ -208,6 +223,14 @@ RUN wget -O /home/minecraft/server/mods/lithium.jar \
     "https://cdn.modrinth.com/data/uXXizFIs/versions/${FERRITECORE_MODRINTH_ID}/ferritecore-7.0.3-fabric.jar" && \
     wget -O /home/minecraft/server/mods/krypton.jar \
     "https://cdn.modrinth.com/data/fQEb0iXm/versions/${KRYPTON_MODRINTH_ID}/krypton-0.2.8.jar"
+
+# Download more Performance mods (server-side: ModernFix, Let Me Despawn + its Almanac dependency)
+RUN wget -O /home/minecraft/server/mods/modernfix.jar \
+    "https://cdn.modrinth.com/data/nmDcB62a/versions/${MODERNFIX_MODRINTH_ID}/modernfix-fabric-5.25.1%2Bmc1.21.1.jar" && \
+    wget -O /home/minecraft/server/mods/letmedespawn.jar \
+    "https://cdn.modrinth.com/data/vE2FN5qn/versions/${LET_ME_DESPAWN_MODRINTH_ID}/letmedespawn-1.21.x-fabric-1.5.0.jar" && \
+    wget -O /home/minecraft/server/mods/almanac.jar \
+    "https://cdn.modrinth.com/data/Gi02250Z/versions/${ALMANAC_MODRINTH_ID}/Almanac-1.21.1-2-fabric-1.5.2.jar"
 
 # Copy the entrypoint script
 COPY start.sh ./
